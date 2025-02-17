@@ -1,0 +1,30 @@
+{
+  "name": "@samchon/npm-dependents",
+  "version": "1.0.0",
+  "description": "Download counter of NPM dependents",
+  "main": "lib/index.js",
+  "typings": "lib/index.d.ts",
+  "bin": {
+    "@samchon/dependents": "lib/executable/dependents.js"
+  },
+  "scripts": {
+    "build": "rimraf lib && tsc",
+    "dev": "npm run build -- --watch"
+  },
+  "keywords": ["npm", "dependents", "download", "count"],
+  "author": "Jeongho Nam",
+  "license": "MIT",
+  "devDependencies": {
+    "@trivago/prettier-plugin-sort-imports": "^5.2.2",
+    "@types/node": "^22.13.4",
+    "prettier": "^3.5.1",
+    "rimraf": "^6.0.1",
+    "typescript": "^5.7.3"
+  },
+  "files": [
+    "lib",
+    "src",
+    "LICENSE",
+    "README.md"
+  ]
+}
