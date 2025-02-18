@@ -7,25 +7,28 @@ interface IDependent {
 }
 
 const main = async (): Promise<void> => {
-  const name: string | undefined = process.argv[2];
+  const target: string | undefined = process.argv[2];
   const period: "day" | "week" | "month" | "year" = (process.argv[3] ??
     "month") as "month";
-  if (!name?.length)
+  if (!target?.length)
     throw new Error("Usage: npx @samchon/dependents <package>");
 
-  const names: string[] = await getDependents(process.argv[2]);
   const dependents: IDependent[] = [];
-  for (const n of names) {
-    const value: number = await getDownload(n, period);
+  for (const name of await getDependents(process.argv[2])) {
+    const value: number = await getDownload(name, period);
     dependents.push({
-      name: n,
+      name,
       downloads: value,
     });
   }
+
   dependents.sort((a, b) => b.downloads - a.downloads);
-  for (const d of dependents) {
+  console.log(
+    `${target}: ${(await getDownload(target, period)).toLocaleString()}`,
+  );
+  console.log("--------------------------------------------");
+  for (const d of dependents)
     console.log(`${d.name}: ${d.downloads.toLocaleString()}`);
-  }
 };
 main().catch((error) => {
   console.error(error);
